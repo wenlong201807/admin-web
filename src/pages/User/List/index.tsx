@@ -37,7 +37,8 @@ const UserListPage = observer(() => {
 
   const handleReset = () => {
     searchForm.resetFields();
-    userStore.fetchUserList({ page: 1, pageSize: 20 });
+    userStore.reset();
+    userStore.fetchUserList();
   };
 
   const handleAdjustPoints = (user: any) => {
@@ -49,7 +50,7 @@ const UserListPage = observer(() => {
     const result = await userStore.adjustPoints(
       selectedUser.id,
       values.amount,
-      values.reason
+      values.reason,
     );
     if (result.success) {
       message.success('积分调整成功');
@@ -95,7 +96,9 @@ const UserListPage = observer(() => {
       title: '积分',
       dataIndex: 'points',
       key: 'points',
-      render: (points: number) => <span style={{ color: '#1890ff' }}>{points}</span>,
+      render: (points: number) => (
+        <span style={{ color: '#1890ff' }}>{points}</span>
+      ),
     },
     {
       title: '状态',
@@ -107,7 +110,10 @@ const UserListPage = observer(() => {
           1: { text: '禁言', color: 'orange' },
           2: { text: '封号', color: 'red' },
         };
-        const { text, color } = statusMap[status] || { text: '未知', color: 'default' };
+        const { text, color } = statusMap[status] || {
+          text: '未知',
+          color: 'default',
+        };
         return <Tag color={color}>{text}</Tag>;
       },
     },
@@ -228,9 +234,7 @@ const UserListPage = observer(() => {
               <Button type="primary" htmlType="submit">
                 确认
               </Button>
-              <Button onClick={() => setPointsModalVisible(false)}>
-                取消
-              </Button>
+              <Button onClick={() => setPointsModalVisible(false)}>取消</Button>
             </Space>
           </Form.Item>
         </Form>
