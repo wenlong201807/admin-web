@@ -10,6 +10,7 @@ import {
   InputNumber,
   message,
   Descriptions,
+  Avatar,
 } from 'antd';
 import { getReportList, handleReport } from '@/services/report';
 import type { ColumnsType } from 'antd/es/table';
@@ -67,8 +68,8 @@ const ReportPage = () => {
       key: 'reporter',
       render: (_, record) => (
         <Space>
-          <Avatar src={record.reporter.avatarUrl} />
-          <span>{record.reporter.nickname}</span>
+          <Avatar src={record.reporter?.avatarUrl} />
+          <span>{record.reporter?.nickname || '-'}</span>
         </Space>
       ),
     },
@@ -78,8 +79,8 @@ const ReportPage = () => {
       key: 'post',
       render: (_, record) => (
         <Space>
-          <Avatar src={record.post.user.avatarUrl} />
-          <span>{record.post.user.nickname}</span>
+          <Avatar src={record.post?.user?.avatarUrl} />
+          <span>{record.post?.user?.nickname || '-'}</span>
         </Space>
       ),
     },
@@ -110,7 +111,7 @@ const ReportPage = () => {
       key: 'postContent',
       render: (_, record) => (
         <div style={{ maxWidth: 200 }}>
-          {record.post.content}
+          {record.post?.content}
         </div>
       ),
     },
@@ -137,10 +138,14 @@ const ReportPage = () => {
   return (
     <div className="report-page">
       <Card>
-        <Tabs activeKey={activeTab} onChange={setActiveTab}>
-          <Tabs.TabPane tab="待处理" key="0" />
-          <Tabs.TabPane tab="已处理" key="1" />
-        </Tabs>
+        <Tabs 
+          activeKey={activeTab} 
+          onChange={setActiveTab}
+          items={[
+            { key: '0', label: '待处理' },
+            { key: '1', label: '已处理' },
+          ]}
+        />
 
         <Table
           columns={columns}
@@ -169,10 +174,10 @@ const ReportPage = () => {
           <Form onFinish={handleReportSubmit}>
             <Descriptions bordered column={1} style={{ marginBottom: 16 }}>
               <Descriptions.Item label="举报人">
-                {selectedReport.reporter.nickname}
+                {selectedReport.reporter?.nickname || '-'}
               </Descriptions.Item>
               <Descriptions.Item label="被举报人">
-                {selectedReport.post.user.nickname}
+                {selectedReport.post?.user?.nickname || '-'}
               </Descriptions.Item>
               <Descriptions.Item label="举报原因">
                 {selectedReport.reason}
@@ -181,7 +186,7 @@ const ReportPage = () => {
                 {selectedReport.description}
               </Descriptions.Item>
               <Descriptions.Item label="举报内容">
-                {selectedReport.post.content}
+                {selectedReport.post?.content}
               </Descriptions.Item>
             </Descriptions>
             <Form.Item

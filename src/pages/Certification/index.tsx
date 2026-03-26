@@ -11,6 +11,7 @@ import {
   Input,
   Image,
   message,
+  Avatar,
 } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { getCertificationList, reviewCertification } from '@/services/certification';
@@ -69,11 +70,11 @@ const CertificationPage = observer(() => {
       key: 'user',
       render: (_, record) => (
         <Space>
-          <Avatar src={record.user.avatarUrl} />
+          <Avatar src={record.user?.avatarUrl} />
           <div>
-            <div>{record.user.nickname}</div>
+            <div>{record.user?.nickname || '-'}</div>
             <div style={{ fontSize: 12, color: '#999' }}>
-              {record.user.mobile}
+              {record.user?.mobile || '-'}
             </div>
           </div>
         </Space>
@@ -134,11 +135,15 @@ const CertificationPage = observer(() => {
   return (
     <div className="certification-page">
       <Card>
-        <Tabs activeKey={activeTab} onChange={setActiveTab}>
-          <Tabs.TabPane tab="待审核" key="0" />
-          <Tabs.TabPane tab="已通过" key="1" />
-          <Tabs.TabPane tab="已拒绝" key="2" />
-        </Tabs>
+        <Tabs 
+          activeKey={activeTab} 
+          onChange={setActiveTab}
+          items={[
+            { key: '0', label: '待审核' },
+            { key: '1', label: '已通过' },
+            { key: '2', label: '已拒绝' },
+          ]}
+        />
 
         <Table
           columns={columns}
@@ -167,8 +172,8 @@ const CertificationPage = observer(() => {
           <Form onFinish={handleReviewSubmit}>
             <Form.Item label="用户">
               <Space>
-                <Avatar src={selectedCert.user.avatarUrl} />
-                <span>{selectedCert.user.nickname}</span>
+                <Avatar src={selectedCert.user?.avatarUrl} />
+                <span>{selectedCert.user?.nickname || '-'}</span>
               </Space>
             </Form.Item>
             <Form.Item label="认证类型">

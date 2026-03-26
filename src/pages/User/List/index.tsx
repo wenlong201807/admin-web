@@ -77,9 +77,9 @@ const UserListPage = observer(() => {
         <Space>
           <Avatar src={record.avatarUrl} />
           <div>
-            <div>{record.nickname}</div>
+            <div>{record.nickname || '-'}</div>
             <div style={{ fontSize: 12, color: '#999' }}>
-              {record.mobile}
+              {record.mobile || '-'}
             </div>
           </div>
         </Space>

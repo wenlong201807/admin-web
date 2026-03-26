@@ -12,6 +12,7 @@ import {
   InputNumber,
   message,
   Image,
+  Avatar,
 } from 'antd';
 import { SearchOutlined, DeleteOutlined } from '@ant-design/icons';
 import { getPostList, deletePost } from '@/services/content';
@@ -80,8 +81,8 @@ const ContentPage = () => {
       key: 'user',
       render: (_, record) => (
         <Space>
-          <Avatar src={record.user.avatarUrl} />
-          <span>{record.user.nickname}</span>
+          <Avatar src={record.user?.avatarUrl} />
+          <span>{record.user?.nickname || '-'}</span>
         </Space>
       ),
     },
@@ -97,10 +98,10 @@ const ContentPage = () => {
       key: 'images',
       render: (images: string[]) => (
         <Space>
-          {images.slice(0, 3).map((url, index) => (
+          {images?.slice(0, 3).map((url, index) => (
             <Image key={index} src={url} width={40} height={40} />
           ))}
-          {images.length > 3 && <span>+{images.length - 3}</span>}
+          {images?.length > 3 && <span>+{images.length - 3}</span>}
         </Space>
       ),
     },
