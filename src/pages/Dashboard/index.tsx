@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col, Card, Statistic, DatePicker, Space } from 'antd';
 import {
   UserOutlined,
@@ -13,14 +13,22 @@ import dayjs from 'dayjs';
 const { RangePicker } = DatePicker;
 
 const DashboardPage = observer(() => {
+  const [dateRange, setDateRange] = useState<[dayjs.Dayjs, dayjs.Dayjs]>(() => {
+    const today = dayjs();
+    return [today.startOf('month'), today];
+  });
+
   useEffect(() => {
-    // debugger;
-    console.log(888);
-    statisticsStore.fetchStatistics('20260323', '20260324');
+    const [startDate, endDate] = dateRange;
+    statisticsStore.fetchStatistics(
+      startDate.format('YYYY-MM-DD'),
+      endDate.format('YYYY-MM-DD'),
+    );
   }, []);
 
   const handleDateChange = (dates: any) => {
     if (dates && dates.length === 2) {
+      setDateRange(dates);
       const startDate = dates[0].format('YYYY-MM-DD');
       const endDate = dates[1].format('YYYY-MM-DD');
       statisticsStore.fetchStatistics(startDate, endDate);
@@ -32,7 +40,7 @@ const DashboardPage = observer(() => {
       <Card className="filter-card" style={{ marginBottom: 16 }}>
         <Space>
           <span>统计时间：</span>
-          <RangePicker onChange={handleDateChange} />
+          <RangePicker value={dateRange} onChange={handleDateChange} />
         </Space>
       </Card>
 

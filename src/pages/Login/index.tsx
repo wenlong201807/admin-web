@@ -14,7 +14,6 @@ const LoginPage = observer(() => {
     setLoading(true);
     try {
       const result = await authStore.login(values.username, values.password);
-      debugger;
       if (result.success) {
         message.success('登录成功');
         navigate('/');

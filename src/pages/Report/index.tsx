@@ -11,6 +11,7 @@ import {
   message,
   Descriptions,
   Avatar,
+  Select,
 } from 'antd';
 import { getReportList, handleReport } from '@/services/report';
 import type { ColumnsType } from 'antd/es/table';
@@ -110,9 +111,7 @@ const ReportPage = () => {
       dataIndex: 'post',
       key: 'postContent',
       render: (_, record) => (
-        <div style={{ maxWidth: 200 }}>
-          {record.post?.content}
-        </div>
+        <div style={{ maxWidth: 200 }}>{record.post?.content}</div>
       ),
     },
     {
@@ -128,7 +127,11 @@ const ReportPage = () => {
       title: '操作',
       key: 'action',
       render: (_, record) => (
-        <Button type="link" size="small" onClick={() => handleReportAction(record)}>
+        <Button
+          type="link"
+          size="small"
+          onClick={() => handleReportAction(record)}
+        >
           处理
         </Button>
       ),
@@ -138,8 +141,8 @@ const ReportPage = () => {
   return (
     <div className="report-page">
       <Card>
-        <Tabs 
-          activeKey={activeTab} 
+        <Tabs
+          activeKey={activeTab}
           onChange={setActiveTab}
           items={[
             { key: '0', label: '待处理' },
@@ -207,10 +210,7 @@ const ReportPage = () => {
             >
               {({ getFieldValue }) =>
                 getFieldValue('action') === 'delete' ? (
-                  <Form.Item
-                    name="deductPoints"
-                    label="扣除积分"
-                  >
+                  <Form.Item name="deductPoints" label="扣除积分">
                     <InputNumber
                       placeholder="可选"
                       min={0}
