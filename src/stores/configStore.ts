@@ -1,9 +1,9 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { getConfig, updateConfig } from '@/services/config';
-import { SystemConfig } from '@/types/api';
+import { pointsConfigApi, PointsConfig } from '@/services/pointsConfig';
 
 class ConfigStore {
-  config: SystemConfig = {} as SystemConfig;
+  config: Record<string, number> = {};
+  configList: PointsConfig[] = [];
   isLoading: boolean = false;
   isSaving: boolean = false;
 
@@ -11,13 +11,17 @@ class ConfigStore {
     makeAutoObservable(this);
   }
 
-  // 获取系统配置
   async fetchConfig() {
     this.isLoading = true;
     try {
-      const res = await getConfig();
+      const res = await pointsConfigApi.getList();
       runInAction(() => {
-        this.config = res.data;
+        this.configList = res.data.list;
+        const configObj: Record<string, number> = {};
+        res.data.list.forEach((item) => {
+          configObj[item.key] = item.value;
+        });
+        this.config = configObj;
       });
     } catch (error) {
       console.error('Fetch config error:', error);
@@ -28,13 +32,19 @@ class ConfigStore {
     }
   }
 
-  // 更新系统配置
-  async updateConfig(newConfig: Partial<SystemConfig>) {
+  async updateConfig(key: string, value: number, description?: string) {
     this.isSaving = true;
     try {
-      await updateConfig(newConfig);
+      await pointsConfigApi.update(key, { value, description });
       runInAction(() => {
-        this.config = { ...this.config, ...newConfig };
+        const index = this.configList.findIndex((item) => item.key === key);
+        if (index !== -1) {
+          this.configList[index].value = value;
+          if (description) {
+            this.configList[index].description = description;
+          }
+          this.config[key] = value;
+        }
       });
       return { success: true };
     } catch (error: any) {
@@ -46,8 +56,22 @@ class ConfigStore {
     }
   }
 
-  // 获取单个配置项
-  getConfigValue(key: keyof SystemConfig): number {
+  async batchUpdate(configs: { key: string; value: number; description?: string }[]) {
+    this.isSaving = true;
+    try {
+      await pointsConfigApi.batchUpdate({ configs });
+      await this.fetchConfig();
+      return { success: true };
+    } catch (error: any) {
+      return { success: false, message: error.message };
+    } finally {
+      runInAction(() => {
+        this.isSaving = false;
+      });
+    }
+  }
+
+  getConfigValue(key: string): number {
     return this.config[key] || 0;
   }
 }

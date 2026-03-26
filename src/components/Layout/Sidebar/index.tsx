@@ -33,6 +33,11 @@ const Sidebar = () => {
       label: '认证审核',
     },
     {
+      key: '/certification-type',
+      icon: <AuditOutlined />,
+      label: '认证类型',
+    },
+    {
       key: '/content',
       icon: <FileTextOutlined />,
       label: '内容管理',

@@ -37,6 +37,7 @@ class AuthStore {
     this.isLoading = true;
     try {
       const res = await login({ username, password });
+      debugger;
       runInAction(() => {
         this.token = res.data.token;
         this.admin = res.data.admin;

@@ -6,6 +6,7 @@ const Login = lazy(() => import('@/pages/Login'));
 const Dashboard = lazy(() => import('@/pages/Dashboard'));
 const UserList = lazy(() => import('@/pages/User/List'));
 const Certification = lazy(() => import('@/pages/Certification'));
+const CertificationType = lazy(() => import('@/pages/CertificationType'));
 const Content = lazy(() => import('@/pages/Content'));
 const Report = lazy(() => import('@/pages/Report'));
 const System = lazy(() => import('@/pages/System'));
@@ -49,6 +50,14 @@ export const routes = [
         element: <Certification />,
         meta: {
           title: '认证审核',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'certification-type',
+        element: <CertificationType />,
+        meta: {
+          title: '认证类型',
           requireAuth: true,
         },
       },

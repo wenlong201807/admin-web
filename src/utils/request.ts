@@ -35,11 +35,11 @@ const createAxiosInstance = (): AxiosInstance => {
   // 响应拦截器
   instance.interceptors.response.use(
     (response: AxiosResponse) => {
-      const { code, message: msg, data } = response.data;
+      const { code, message: msg } = response.data;
 
       // 成功响应
       if (code === 0) {
-        return data;
+        return response.data;
       }
 
       // 业务错误

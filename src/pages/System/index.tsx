@@ -16,7 +16,13 @@ const SystemPage = observer(() => {
 
   const handleSave = async () => {
     const values = await form.validateFields();
-    const result = await configStore.updateConfig(values);
+    const configs = Object.entries(values)
+      .filter(([_, value]) => value !== undefined && value !== null)
+      .map(([key, value]) => ({
+        key,
+        value: value as number,
+      }));
+    const result = await configStore.batchUpdate(configs);
     if (result.success) {
       message.success('配置保存成功');
     } else {

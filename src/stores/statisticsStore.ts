@@ -20,19 +20,19 @@ class StatisticsStore {
       const res = await getStatistics({ startDate, endDate });
       // debugger;
       console.log(77, res);
-      // runInAction(() => {
-      //   this.statistics = res.data;
-      //   if (startDate && endDate) {
-      //     this.dateRange = [startDate, endDate];
-      //   }
-      // });
+      runInAction(() => {
+        this.statistics = res.data;
+        if (startDate && endDate) {
+          this.dateRange = [startDate, endDate];
+        }
+      });
     } catch (error) {
       console.error('Fetch statistics error:', error);
     } finally {
       console.log(88);
-      // runInAction(() => {
-      //   this.isLoading = false;
-      // });
+      runInAction(() => {
+        this.isLoading = false;
+      });
     }
   }
 

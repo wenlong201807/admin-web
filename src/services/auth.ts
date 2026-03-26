@@ -4,6 +4,7 @@ import { http } from '@/utils/request';
 interface LoginParams {
   username: string;
   password: string;
+  loginType?: 'username' | 'mobile_sms';
 }
 
 interface LoginResponse {
@@ -17,7 +18,11 @@ interface LoginResponse {
 
 // 管理员登录
 export const login = (params: LoginParams) => {
-  return http.post<LoginResponse>('/admin/auth/login', params);
+  return http.post<LoginResponse>('/admin/auth/login', {
+    account: params.username,
+    password: params.password,
+    loginType: 'username',
+  });
 };
 
 // 管理员登出

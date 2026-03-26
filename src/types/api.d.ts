@@ -121,3 +121,26 @@ export interface StatisticsData {
     totalConsumed: number;
   };
 }
+
+export interface PointsConfigItem {
+  id: number;
+  key: string;
+  value: number;
+  description: string;
+  isEnabled: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CertificationTypeItem {
+  id: number;
+  code: string;
+  name: string;
+  icon: string;
+  description: string;
+  requiredFields: string[];
+  isEnabled: boolean;
+  sortOrder: number;
+  createdAt: string;
+  updatedAt: string;
+}
