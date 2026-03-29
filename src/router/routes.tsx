@@ -10,6 +10,7 @@ const CertificationType = lazy(() => import('@/pages/CertificationType'));
 const Content = lazy(() => import('@/pages/Content'));
 const Report = lazy(() => import('@/pages/Report'));
 const System = lazy(() => import('@/pages/System'));
+const File = lazy(() => import('@/pages/File'));
 
 // 路由配置
 export const routes = [
@@ -82,6 +83,14 @@ export const routes = [
         element: <System />,
         meta: {
           title: '系统配置',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'file',
+        element: <File />,
+        meta: {
+          title: '图片管理',
           requireAuth: true,
         },
       },
