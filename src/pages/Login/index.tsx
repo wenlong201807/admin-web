@@ -27,6 +27,7 @@ const LoginPage = observer(() => {
 
   return (
     <div className="login-container">
+      <div className="login-title">{import.meta.env.VITE_APP_TITLE}</div>
       <Card className="login-card" title="WeTogether 管理后台">
         <Form name="login" onFinish={onFinish} autoComplete="off" size="large">
           <Form.Item

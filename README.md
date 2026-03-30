@@ -13,6 +13,97 @@
 - **Axios** - HTTP 客户端
 - **Day.js** - 日期处理
 
+## 环境配置
+
+项目支持三个环境：开发环境、测试环境、生产环境。
+
+### 环境变量配置
+
+#### 开发环境 (.env.development)
+
+```bash
+VITE_API_BASE_URL=http://localhost:3018/api/v1
+VITE_APP_TITLE=WeTogether Admin
+VITE_APP_ENV=development
+VITE_APP_PORT=5173
+VITE_APP_BASE_URL=/
+VITE_UPLOAD_MAX_SIZE=10485760
+VITE_UPLOAD_ALLOWED_TYPES=image/jpeg,image/png,image/gif,image/webp,application/pdf
+```
+
+#### 测试环境 (.env.staging)
+
+```bash
+VITE_API_BASE_URL=https://staging-api.wertogether.com/api/v1
+VITE_APP_TITLE=WeTogether Admin (Staging)
+VITE_APP_ENV=staging
+VITE_APP_PORT=5173
+VITE_APP_BASE_URL=/admin/
+VITE_UPLOAD_MAX_SIZE=10485760
+VITE_UPLOAD_ALLOWED_TYPES=image/jpeg,image/png,image/gif,image/webp,application/pdf
+```
+
+#### 生产环境 (.env.production)
+
+```bash
+VITE_API_BASE_URL=https://api.wertogether.com/api/v1
+VITE_APP_TITLE=WeTogether Admin
+VITE_APP_ENV=production
+VITE_APP_PORT=5173
+VITE_APP_BASE_URL=/admin/
+VITE_UPLOAD_MAX_SIZE=10485760
+VITE_UPLOAD_ALLOWED_TYPES=image/jpeg,image/png,image/gif,image/webp,application/pdf
+```
+
+### 可用脚本
+
+#### 开发环境
+
+```bash
+pnpm dev              # 启动开发环境
+pnpm build:dev        # 构建开发环境
+pnpm preview:dev      # 预览开发环境构建结果
+```
+
+#### 测试环境
+
+```bash
+pnpm dev:staging      # 启动测试环境
+pnpm build:staging    # 构建测试环境
+pnpm preview:staging  # 预览测试环境构建结果
+```
+
+#### 生产环境
+
+```bash
+pnpm build:prod       # 构建生产环境
+pnpm preview:prod     # 预览生产环境构建结果
+```
+
+#### 其他脚本
+
+```bash
+pnpm build            # 默认构建
+pnpm preview          # 默认预览
+pnpm lint             # 代码检查
+pnpm format           # 代码格式化
+```
+
+### 环境切换
+
+在开发过程中，可以通过以下命令切换环境：
+
+- 开发环境：`pnpm dev`
+- 测试环境：`pnpm dev:staging`
+- 生产环境：`pnpm dev:prod`
+
+### 注意事项
+
+1. 所有环境变量必须以 `VITE_` 开头才能在 Vite 中使用
+2. 生产环境构建时会自动禁用 source map
+3. 不同环境的 API 地址需要根据实际情况配置
+4. 上传文件大小限制和允许的文件类型可以根据需求调整
+
 ## 功能模块
 
 - ✅ 登录认证
@@ -116,21 +207,21 @@ VITE_APP_ENV=production
 
 ### 主要接口
 
-| 模块 | 接口 | 说明 |
-|------|------|------|
-| 认证 | POST /admin/auth/login | 管理员登录 |
-| 用户 | GET /admin/users | 获取用户列表 |
-| 用户 | POST /admin/users/:userId/points | 调整用户积分 |
-| 用户 | PUT /admin/users/:userId/status | 更新用户状态 |
-| 认证 | GET /admin/certifications | 获取认证列表 |
-| 认证 | PUT /admin/certifications/:id/review | 审核认证 |
-| 内容 | GET /admin/posts | 获取内容列表 |
-| 内容 | DELETE /admin/posts/:id | 删除内容 |
-| 举报 | GET /admin/reports | 获取举报列表 |
-| 举报 | PUT /admin/reports/:id/handle | 处理举报 |
-| 配置 | GET /admin/config | 获取系统配置 |
-| 配置 | PUT /admin/config | 更新系统配置 |
-| 统计 | GET /admin/statistics | 获取统计数据 |
+| 模块 | 接口                                 | 说明         |
+| ---- | ------------------------------------ | ------------ |
+| 认证 | POST /admin/auth/login               | 管理员登录   |
+| 用户 | GET /admin/users                     | 获取用户列表 |
+| 用户 | POST /admin/users/:userId/points     | 调整用户积分 |
+| 用户 | PUT /admin/users/:userId/status      | 更新用户状态 |
+| 认证 | GET /admin/certifications            | 获取认证列表 |
+| 认证 | PUT /admin/certifications/:id/review | 审核认证     |
+| 内容 | GET /admin/posts                     | 获取内容列表 |
+| 内容 | DELETE /admin/posts/:id              | 删除内容     |
+| 举报 | GET /admin/reports                   | 获取举报列表 |
+| 举报 | PUT /admin/reports/:id/handle        | 处理举报     |
+| 配置 | GET /admin/config                    | 获取系统配置 |
+| 配置 | PUT /admin/config                    | 更新系统配置 |
+| 统计 | GET /admin/statistics                | 获取统计数据 |
 
 ## 默认账号
 
@@ -213,6 +304,7 @@ server: {
 ### MobX 状态不更新
 
 确保：
+
 1. 组件使用 `observer` 包裹
 2. Store 使用 `makeAutoObservable`
 3. 异步操作使用 `runInAction`

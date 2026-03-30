@@ -4,9 +4,17 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode dev",
+    "dev:staging": "vite --mode staging",
+    "dev:prod": "vite --mode prod",
     "build": "tsc && vite build",
+    "build:dev": "tsc && vite build --mode dev",
+    "build:staging": "tsc && vite build --mode staging",
+    "build:prod": "tsc && vite build --mode prod",
     "preview": "vite preview",
+    "preview:dev": "vite preview --mode dev",
+    "preview:staging": "vite preview --mode staging",
+    "preview:prod": "vite preview --mode prod",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\""
   },
