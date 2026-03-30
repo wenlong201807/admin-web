@@ -105,7 +105,7 @@ const UserListPage = observer(() => {
       dataIndex: 'status',
       key: 'status',
       render: (status: number) => {
-        const statusMap = {
+        const statusMap: Record<number, { text: string; color: string }> = {
           0: { text: '正常', color: 'green' },
           1: { text: '禁言', color: 'orange' },
           2: { text: '封号', color: 'red' },

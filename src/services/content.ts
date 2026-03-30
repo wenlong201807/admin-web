@@ -1,5 +1,5 @@
 import { http } from '@/utils/request';
-import { BaseResponse, PaginationParams, PaginationResponse, Post } from '@/types/api';
+import { PaginationParams, PaginationResponse, Post } from '@/types/api';
 
 interface PostListParams extends PaginationParams {
   status?: number;

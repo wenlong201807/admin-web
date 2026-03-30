@@ -2,16 +2,15 @@ import { Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Spin } from 'antd';
 import { routes } from './routes';
-import MainLayout from '@/components/Layout';
 import { authStore } from '@/stores';
 
 // 404 页面
-const NotFound = () => (
-  <div style={{ textAlign: 'center', padding: '100px 0' }}>
-    <h1>404</h1>
-    <p>页面不存在</p>
-  </div>
-);
+// const NotFound = () => (
+//   <div style={{ textAlign: 'center', padding: '100px 0' }}>
+//     <h1>404</h1>
+//     <p>页面不存在</p>
+//   </div>
+// );
 
 // 路由守卫组件
 const RouteGuard = ({

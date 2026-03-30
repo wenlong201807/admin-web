@@ -1,5 +1,9 @@
 import { http } from '@/utils/request';
-import { BaseResponse, PaginationParams, PaginationResponse, Certification } from '@/types/api';
+import {
+  PaginationParams,
+  PaginationResponse,
+  Certification,
+} from '@/types/api';
 
 interface CertificationListParams extends PaginationParams {
   status?: number;
@@ -12,7 +16,9 @@ interface ReviewParams {
 
 // 获取认证审核列表
 export const getCertificationList = (params: CertificationListParams) => {
-  return http.get<PaginationResponse<Certification>>('/admin/certifications', { params });
+  return http.get<PaginationResponse<Certification>>('/admin/certifications', {
+    params,
+  });
 };
 
 // 审核认证

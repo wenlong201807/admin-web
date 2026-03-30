@@ -1,5 +1,5 @@
 import { http } from '@/utils/request';
-import { BaseResponse, StatisticsData } from '@/types/api';
+import { StatisticsData } from '@/types/api';
 
 interface StatisticsParams {
   startDate: string;

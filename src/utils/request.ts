@@ -51,16 +51,17 @@ const createAxiosInstance = (): AxiosInstance => {
       const { response } = error;
 
       // Token 过期
-      // if (response?.status === 401) {
-      //   message.error('登录已过期，请重新登录');
-      //   localStorage.removeItem('token');
-      //   localStorage.removeItem('admin');
-      //   window.location.href = '/login';
-      //   return Promise.reject(error);
-      // }
+      if (response?.status === 401) {
+        message.error('登录已过期，请重新登录');
+        localStorage.removeItem('token');
+        localStorage.removeItem('admin');
+        window.location.href = '/login';
+        return Promise.reject(error);
+      }
 
       // 其他错误
-      const errorMsg = response?.data?.message || error.message || '网络错误';
+      const errorMsg = error.message || '网络错误';
+      // const errorMsg = response?.data?.message || error.message || '网络错误';
       message.error(errorMsg);
       return Promise.reject(error);
     },
