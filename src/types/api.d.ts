@@ -144,3 +144,18 @@ export interface CertificationTypeItem {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface AppConfig {
+  apiUrl: string;
+  appTitle: string;
+  appEnv: 'development' | 'staging' | 'production';
+  appPort: number;
+  appBaseUrl: string;
+  appLogo: string;
+  appFavicon: string;
+  uploadMaxSize: number;
+  uploadAllowedTypes: string[];
+  isDevelopment: boolean;
+  isStaging: boolean;
+  isProduction: boolean;
+}

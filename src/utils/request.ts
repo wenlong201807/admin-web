@@ -6,11 +6,12 @@ import axios, {
 } from 'axios';
 import { message } from 'antd';
 import { BaseResponse } from '@/types/api';
+import config from './config';
 
 // 创建 Axios 实例
 const createAxiosInstance = (): AxiosInstance => {
   const instance = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL,
+    baseURL: config.apiUrl,
     timeout: 30000,
     headers: {
       'Content-Type': 'application/json',
