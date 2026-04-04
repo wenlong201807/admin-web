@@ -14,7 +14,7 @@ import '../index.less';
 const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed] = useState(false);
 
   const menuItems = [
     {

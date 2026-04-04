@@ -3,7 +3,6 @@ import {
   Table,
   Card,
   Tabs,
-  Tag,
   Button,
   Space,
   Modal,
@@ -12,9 +11,13 @@ import {
   Image,
   message,
   Avatar,
+  Select,
 } from 'antd';
 import { observer } from 'mobx-react-lite';
-import { getCertificationList, reviewCertification } from '@/services/certification';
+import {
+  getCertificationList,
+  reviewCertification,
+} from '@/services/certification';
 import type { ColumnsType } from 'antd/es/table';
 
 const CertificationPage = observer(() => {
@@ -101,7 +104,12 @@ const CertificationPage = observer(() => {
       dataIndex: 'imageUrl',
       key: 'imageUrl',
       render: (url: string) => (
-        <Image src={url} width={60} height={60} style={{ objectFit: 'cover' }} />
+        <Image
+          src={url}
+          width={60}
+          height={60}
+          style={{ objectFit: 'cover' }}
+        />
       ),
     },
     {
@@ -135,8 +143,8 @@ const CertificationPage = observer(() => {
   return (
     <div className="certification-page">
       <Card>
-        <Tabs 
-          activeKey={activeTab} 
+        <Tabs
+          activeKey={activeTab}
           onChange={setActiveTab}
           items={[
             { key: '0', label: '待审核' },
@@ -183,7 +191,7 @@ const CertificationPage = observer(() => {
               <Image src={selectedCert.imageUrl} width={200} />
             </Form.Item>
             <Form.Item label="描述">
-              <span>{selectedCert.description}</span>
+              <span>{selectedCert.description || '-'}</span>
             </Form.Item>
             <Form.Item
               name="status"

@@ -24,7 +24,9 @@ const CertificationTypePage = observer(() => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<CertificationType[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [editingItem, setEditingItem] = useState<CertificationType | null>(null);
+  const [editingItem, setEditingItem] = useState<CertificationType | null>(
+    null,
+  );
   const [form] = Form.useForm();
 
   const fetchData = async () => {
@@ -85,7 +87,10 @@ const CertificationTypePage = observer(() => {
       icon: values.icon,
       description: values.description,
       requiredFields: values.requiredFields
-        ? values.requiredFields.split(',').map((s: string) => s.trim()).filter(Boolean)
+        ? values.requiredFields
+            .split(',')
+            .map((s: string) => s.trim())
+            .filter(Boolean)
         : [],
       isEnabled: values.isEnabled,
       sortOrder: values.sortOrder,
@@ -96,8 +101,8 @@ const CertificationTypePage = observer(() => {
         await certificationTypeApi.update(editingItem.id, dto);
         message.success('更新成功');
       } else {
-        await certificationTypeApi.create({ code: values.code, ...dto });
-        message.success('创建成功');
+        // await certificationTypeApi.create({ ...dto, code: values.code });
+        // message.success('创建成功');
       }
       setModalVisible(false);
       fetchData();

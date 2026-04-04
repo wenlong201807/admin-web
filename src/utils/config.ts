@@ -1,14 +1,10 @@
 import type { AppConfig } from '@/types/api';
 
 const config: AppConfig = {
-  apiUrl: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3018/api/v1',
+  apiUrl: import.meta.env.VITE_APP_BASE_API || 'http://localhost:8120/api/v1',
   appTitle: import.meta.env.VITE_APP_TITLE || 'WeTogether Admin',
-  appEnv:
-    (import.meta.env.VITE_APP_ENV as
-      | 'development'
-      | 'staging'
-      | 'production') || 'development',
-  appPort: Number(import.meta.env.VITE_APP_PORT) || 5173,
+  appEnv: import.meta.env.VITE_APP_ENV || 'production',
+  appPort: Number(import.meta.env.VITE_APP_PORT) || 8108,
   appBaseUrl: import.meta.env.VITE_APP_BASE_URL || '/',
   appLogo: import.meta.env.VITE_APP_LOGO || '/logo.png',
   appFavicon: import.meta.env.VITE_APP_FAVICON || '/favicon.ico',

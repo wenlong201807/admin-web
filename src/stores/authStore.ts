@@ -4,6 +4,7 @@ import { AdminUser } from '@/types/api';
 
 class AuthStore {
   token: string = '';
+  refreshToken: string = '';
   admin: AdminUser | null = null;
   isAuthenticated: boolean = false;
   isLoading: boolean = false;
@@ -16,13 +17,15 @@ class AuthStore {
   // 从本地存储初始化
   initFromStorage() {
     const token = localStorage.getItem('token');
+    const refreshToken = localStorage.getItem('refreshToken');
     const adminStr = localStorage.getItem('admin');
-    console.log('adminStr:', adminStr);
+
     if (token && adminStr) {
       try {
         const admin = JSON.parse(adminStr);
         runInAction(() => {
           this.token = token;
+          this.refreshToken = refreshToken || '';
           this.admin = admin;
           this.isAuthenticated = true;
         });
@@ -37,13 +40,13 @@ class AuthStore {
     this.isLoading = true;
     try {
       const res = await login({ username, password });
-      debugger;
       runInAction(() => {
         this.token = res.data.token;
+        this.refreshToken = res.data.refreshToken || res.data.token;
         this.admin = res.data.admin;
         this.isAuthenticated = true;
         localStorage.setItem('token', res.data.token);
-        // debugger;
+        localStorage.setItem('refreshToken', res.data.refreshToken || res.data.token);
         localStorage.setItem('admin', JSON.stringify(res.data.admin));
       });
       return { success: true };
@@ -65,9 +68,11 @@ class AuthStore {
     } finally {
       runInAction(() => {
         this.token = '';
+        this.refreshToken = '';
         this.admin = null;
         this.isAuthenticated = false;
         localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
         localStorage.removeItem('admin');
       });
     }
@@ -76,9 +81,13 @@ class AuthStore {
   // 刷新 Token
   async refreshAccessToken() {
     try {
-      const res = await refreshToken();
+      const res = await refreshToken(this.refreshToken);
       runInAction(() => {
         this.token = res.data.token;
+        if (res.data.refreshToken) {
+          this.refreshToken = res.data.refreshToken;
+          localStorage.setItem('refreshToken', res.data.refreshToken);
+        }
         localStorage.setItem('token', res.data.token);
       });
     } catch (error) {

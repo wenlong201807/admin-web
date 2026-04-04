@@ -9,6 +9,7 @@ interface LoginParams {
 
 interface LoginResponse {
   token: string;
+  refreshToken?: string;
   admin: {
     id: number;
     username: string;
@@ -31,6 +32,8 @@ export const logout = () => {
 };
 
 // 刷新 Token
-export const refreshToken = () => {
-  return http.post<{ token: string }>('/admin/auth/refresh');
+export const refreshToken = (token: string) => {
+  return http.post<{ token: string; refreshToken?: string }>('/admin/auth/refresh', {
+    refreshToken: token,
+  });
 };

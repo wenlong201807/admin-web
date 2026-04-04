@@ -1,5 +1,4 @@
 import { http } from '@/utils/request';
-import { BaseResponse, PaginationParams, PaginationResponse } from '@/types/api';
 
 export interface PointsConfig {
   id: number;
@@ -40,5 +39,5 @@ export const pointsConfigApi = {
 
   init: () => {
     return http.post('/admin/points-configs/init');
-  }
+  },
 };

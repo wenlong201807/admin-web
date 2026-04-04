@@ -120,12 +120,15 @@ const ContentPage = () => {
       dataIndex: 'status',
       key: 'status',
       render: (status: number) => {
-        const statusMap = {
+        const statusMap: Record<number, { text: string; color: string }> = {
           0: { text: '正常', color: 'green' },
           1: { text: '已删除', color: 'red' },
           2: { text: '违规', color: 'orange' },
         };
-        const { text, color } = statusMap[status] || { text: '未知', color: 'default' };
+        const { text, color } = statusMap[status] || {
+          text: '未知',
+          color: 'default',
+        };
         return <Tag color={color}>{text}</Tag>;
       },
     },
@@ -217,10 +220,7 @@ const ContentPage = () => {
             >
               <Input.TextArea rows={3} placeholder="请输入删除原因" />
             </Form.Item>
-            <Form.Item
-              name="deductPoints"
-              label="扣除积分"
-            >
+            <Form.Item name="deductPoints" label="扣除积分">
               <InputNumber
                 placeholder="可选"
                 min={0}

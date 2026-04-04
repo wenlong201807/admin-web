@@ -1,5 +1,5 @@
 import { http } from '@/utils/request';
-import { BaseResponse, PaginationParams, PaginationResponse, User } from '@/types/api';
+import { PaginationParams, PaginationResponse, User } from '@/types/api';
 
 interface UserListParams extends PaginationParams {
   keyword?: string;
@@ -26,11 +26,17 @@ export const getUserDetail = (userId: number) => {
 };
 
 // 调整用户积分
-export const adjustUserPoints = (userId: number, params: AdjustPointsParams) => {
+export const adjustUserPoints = (
+  userId: number,
+  params: AdjustPointsParams,
+) => {
   return http.post(`/admin/users/${userId}/points`, params);
 };
 
 // 更新用户状态
-export const updateUserStatus = (userId: number, params: UpdateStatusParams) => {
+export const updateUserStatus = (
+  userId: number,
+  params: UpdateStatusParams,
+) => {
   return http.put(`/admin/users/${userId}/status`, params);
 };

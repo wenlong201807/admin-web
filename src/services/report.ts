@@ -1,5 +1,5 @@
 import { http } from '@/utils/request';
-import { BaseResponse, PaginationParams, PaginationResponse, Report } from '@/types/api';
+import { PaginationParams, PaginationResponse, Report } from '@/types/api';
 
 interface ReportListParams extends PaginationParams {
   status?: number;
