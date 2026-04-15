@@ -33,26 +33,26 @@ export interface UpdateCertificationTypeDto {
 
 export const certificationTypeApi = {
   getList: () => {
-    return http.get<{ list: CertificationType[] }>('/admin/certification-types');
+    return http.get<{ list: CertificationType[] }>('/api/v1/admin/certification-types');
   },
 
   getById: (id: number) => {
-    return http.get<CertificationType>(`/admin/certification-types/${id}`);
+    return http.get<CertificationType>(`/api/v1/admin/certification-types/${id}`);
   },
 
   create: (data: CreateCertificationTypeDto) => {
-    return http.post<CertificationType>('/admin/certification-types', data);
+    return http.post<CertificationType>('/api/v1/admin/certification-types', data);
   },
 
   update: (id: number, data: UpdateCertificationTypeDto) => {
-    return http.put(`/admin/certification-types/${id}`, data);
+    return http.put(`/api/v1/admin/certification-types/${id}`, data);
   },
 
   delete: (id: number) => {
-    return http.delete(`/admin/certification-types/${id}`);
+    return http.delete(`/api/v1/admin/certification-types/${id}`);
   },
 
   init: () => {
-    return http.post('/admin/certification-types/init');
+    return http.post('/api/v1/admin/certification-types/init');
   }
 };

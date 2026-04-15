@@ -7,6 +7,7 @@ import {
   FileTextOutlined,
   WarningOutlined,
   SettingOutlined,
+  ExperimentOutlined,
 } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../index.less';
@@ -46,6 +47,11 @@ const Sidebar = () => {
       key: '/report',
       icon: <WarningOutlined />,
       label: '举报管理',
+    },
+    {
+      key: '/mbti',
+      icon: <ExperimentOutlined />,
+      label: 'MBTI管理',
     },
     {
       key: '/system',

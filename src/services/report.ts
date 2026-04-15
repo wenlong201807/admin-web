@@ -12,10 +12,10 @@ interface HandleReportParams {
 
 // 获取举报列表
 export const getReportList = (params: ReportListParams) => {
-  return http.get<PaginationResponse<Report>>('/admin/reports', { params });
+  return http.get<PaginationResponse<Report>>('/api/v1/admin/reports', { params });
 };
 
 // 处理举报
 export const handleReport = (id: number, params: HandleReportParams) => {
-  return http.put(`/admin/reports/${id}/handle`, params);
+  return http.put(`/api/v1/admin/reports/${id}/handle`, params);
 };

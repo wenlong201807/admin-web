@@ -11,6 +11,7 @@ const Content = lazy(() => import('@/pages/Content'));
 const Report = lazy(() => import('@/pages/Report'));
 const System = lazy(() => import('@/pages/System'));
 const File = lazy(() => import('@/pages/File'));
+const Mbti = lazy(() => import('@/pages/Mbti'));
 
 // 路由配置
 export const routes = [
@@ -91,6 +92,14 @@ export const routes = [
         element: <File />,
         meta: {
           title: '图片管理',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'mbti',
+        element: <Mbti />,
+        meta: {
+          title: 'MBTI管理',
           requireAuth: true,
         },
       },

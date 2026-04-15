@@ -22,22 +22,22 @@ export interface BatchUpdateDto {
 
 export const pointsConfigApi = {
   getList: () => {
-    return http.get<{ list: PointsConfig[] }>('/admin/points-configs');
+    return http.get<{ list: PointsConfig[] }>('/api/v1/admin/points-configs');
   },
 
   getByKey: (key: string) => {
-    return http.get<PointsConfig>(`/admin/points-configs/${key}`);
+    return http.get<PointsConfig>(`/api/v1/admin/points-configs/${key}`);
   },
 
   update: (key: string, data: UpdatePointsConfigDto) => {
-    return http.put(`/admin/points-configs/${key}`, data);
+    return http.put(`/api/v1/admin/points-configs/${key}`, data);
   },
 
   batchUpdate: (data: BatchUpdateDto) => {
-    return http.post('/admin/points-configs/batch', data);
+    return http.post('/api/v1/admin/points-configs/batch', data);
   },
 
   init: () => {
-    return http.post('/admin/points-configs/init');
+    return http.post('/api/v1/admin/points-configs/init');
   },
 };

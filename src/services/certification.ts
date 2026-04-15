@@ -16,12 +16,12 @@ interface ReviewParams {
 
 // 获取认证审核列表
 export const getCertificationList = (params: CertificationListParams) => {
-  return http.get<PaginationResponse<Certification>>('/admin/certifications', {
+  return http.get<PaginationResponse<Certification>>('/api/v1/admin/certifications', {
     params,
   });
 };
 
 // 审核认证
 export const reviewCertification = (id: number, params: ReviewParams) => {
-  return http.put(`/admin/certifications/${id}/review`, params);
+  return http.put(`/api/v1/admin/certifications/${id}/review`, params);
 };
