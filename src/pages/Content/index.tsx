@@ -91,6 +91,20 @@ const ContentPage = () => {
       dataIndex: 'content',
       key: 'content',
       ellipsis: true,
+      render: (content: string) => {
+        // 检测是否包含 MBTI 标签
+        const mbtiMatch = content.match(/#MBTI测试|#(INTJ|INTP|ENTJ|ENTP|INFJ|INFP|ENFJ|ENFP|ISTJ|ISFJ|ESTJ|ESFJ|ISTP|ISFP|ESTP|ESFP)/);
+        return (
+          <div>
+            <div style={{ marginBottom: 4 }}>{content}</div>
+            {mbtiMatch && (
+              <Tag color="purple" style={{ marginTop: 4 }}>
+                MBTI 分享
+              </Tag>
+            )}
+          </div>
+        );
+      },
     },
     {
       title: '图片',
@@ -174,6 +188,12 @@ const ContentPage = () => {
               <Select.Option value={0}>正常</Select.Option>
               <Select.Option value={1}>已删除</Select.Option>
               <Select.Option value={2}>违规</Select.Option>
+            </Select>
+          </Form.Item>
+          <Form.Item name="contentType">
+            <Select placeholder="内容类型" style={{ width: 150 }} allowClear>
+              <Select.Option value="mbti">MBTI 分享</Select.Option>
+              <Select.Option value="normal">普通动态</Select.Option>
             </Select>
           </Form.Item>
           <Form.Item>
