@@ -52,8 +52,8 @@ main() {
 
     # 步骤 2: 构建前端
     print_step "步骤 2/5: 构建前端项目"
-    log_step "执行 npm run build"
-    npm run build
+    log_step "执行 npm run build:staging"
+    npm run build:staging
     log_success "前端构建完成"
     echo ""
 

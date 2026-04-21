@@ -16,9 +16,7 @@ export default defineConfig(({ mode }) => {
       port: 5173,
       proxy: {
         '/api': {
-          target:
-            env.VITE_API_BASE_URL?.replace('/api/v1', '') ||
-            'http://localhost:3018',
+          target: env.VITE_APP_BASE_API?.replace('/api/v1', '') || 'http://localhost:8120',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '/api/v1'),
         },
@@ -38,6 +36,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     define: {
+      'import.meta.env.VITE_APP_BASE_API': JSON.stringify(env.VITE_APP_BASE_API),
       'import.meta.env.VITE_APP_TITLE': JSON.stringify(env.VITE_APP_TITLE),
       'import.meta.env.VITE_APP_ENV': JSON.stringify(env.VITE_APP_ENV),
     },

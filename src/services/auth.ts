@@ -19,7 +19,7 @@ interface LoginResponse {
 
 // 管理员登录
 export const login = (params: LoginParams) => {
-  return http.post<LoginResponse>('/api/v1/admin/auth/login', {
+  return http.post<LoginResponse>('/admin/auth/login', {
     account: params.username,
     password: params.password,
     loginType: 'username',
@@ -28,12 +28,12 @@ export const login = (params: LoginParams) => {
 
 // 管理员登出
 export const logout = () => {
-  return http.post('/api/v1/admin/auth/logout');
+  return http.post('/admin/auth/logout');
 };
 
 // 刷新 Token
 export const refreshToken = (token: string) => {
-  return http.post<{ token: string; refreshToken?: string }>('/api/v1/admin/auth/refresh', {
+  return http.post<{ token: string; refreshToken?: string }>('/admin/auth/refresh', {
     refreshToken: token,
   });
 };

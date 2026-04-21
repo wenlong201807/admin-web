@@ -13,10 +13,10 @@ interface DeletePostParams {
 
 // 获取内容列表
 export const getPostList = (params: PostListParams) => {
-  return http.get<PaginationResponse<Post>>('/api/v1/admin/posts', { params });
+  return http.get<PaginationResponse<Post>>('/admin/posts', { params });
 };
 
 // 删除内容
 export const deletePost = (id: number, params?: DeletePostParams) => {
-  return http.delete(`/api/v1/admin/posts/${id}`, { data: params });
+  return http.delete(`/admin/posts/${id}`, { data: params });
 };

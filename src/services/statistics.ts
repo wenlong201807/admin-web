@@ -8,5 +8,5 @@ interface StatisticsParams {
 
 // 获取统计数据
 export const getStatistics = (params: StatisticsParams) => {
-  return http.get<StatisticsData>('/api/v1/admin/statistics', { params });
+  return http.get<StatisticsData>('/admin/statistics', { params });
 };
