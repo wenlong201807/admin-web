@@ -8,7 +8,6 @@ import {
   Form,
   Input,
   InputNumber,
-  Switch,
   message,
   Tag,
   Popconfirm,
@@ -93,7 +92,7 @@ const MbtiPage = observer(() => {
     setModalVisible(true);
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (_id: number) => {
     try {
       // TODO: 调用API删除
       message.success('删除成功');
@@ -109,7 +108,7 @@ const MbtiPage = observer(() => {
 
   const handleSubmit = async () => {
     try {
-      const values = await form.validateFields();
+      await form.validateFields();
       // TODO: 调用API保存
       message.success(editingItem ? '更新成功' : '创建成功');
       setModalVisible(false);
@@ -305,18 +304,33 @@ const MbtiPage = observer(() => {
           </Space>
         }
       >
-        <Table
-          columns={activeTab === 'questions' ? questionColumns : reportColumns}
-          dataSource={activeTab === 'questions' ? questions : reports}
-          rowKey="id"
-          loading={loading}
-          scroll={{ x: 1200 }}
-          pagination={{
-            showSizeChanger: true,
-            showQuickJumper: true,
-            showTotal: (total) => `共 ${total} 条`,
-          }}
-        />
+        {activeTab === 'questions' ? (
+          <Table
+            columns={questionColumns}
+            dataSource={questions}
+            rowKey="id"
+            loading={loading}
+            scroll={{ x: 1200 }}
+            pagination={{
+              showSizeChanger: true,
+              showQuickJumper: true,
+              showTotal: (total) => `共 ${total} 条`,
+            }}
+          />
+        ) : (
+          <Table
+            columns={reportColumns}
+            dataSource={reports}
+            rowKey="id"
+            loading={loading}
+            scroll={{ x: 1200 }}
+            pagination={{
+              showSizeChanger: true,
+              showQuickJumper: true,
+              showTotal: (total) => `共 ${total} 条`,
+            }}
+          />
+        )}
       </Card>
 
       <Modal
