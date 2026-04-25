@@ -159,3 +159,115 @@ export interface AppConfig {
   isStaging: boolean;
   isProduction: boolean;
 }
+
+export enum NPSCategory {
+  PROMOTER = 'promoter',
+  PASSIVE = 'passive',
+  DETRACTOR = 'detractor',
+}
+
+export enum NPSTriggerType {
+  AUTO = 'auto',
+  MANUAL = 'manual',
+}
+
+export enum NPSTriggerScene {
+  AFTER_REGISTER = 'after_register',
+  AFTER_FIRST_POST = 'after_first_post',
+  AFTER_ADD_FRIEND = 'after_add_friend',
+  AFTER_ACTIVE_WEEK = 'after_active_week',
+  PERIODIC = 'periodic',
+  MANUAL_TRIGGER = 'manual_trigger',
+}
+
+export enum NPSStatus {
+  PENDING = 0,
+  PROCESSING = 1,
+  COMPLETED = 2,
+  IGNORED = 3,
+}
+
+export enum NPSPriority {
+  LOW = 0,
+  MEDIUM = 1,
+  HIGH = 2,
+  URGENT = 3,
+}
+
+export interface NPSFeedback {
+  id: number;
+  userId: number;
+  score: number;
+  category: NPSCategory;
+  reason?: string;
+  suggestion?: string;
+  tags?: string[];
+  triggerType: NPSTriggerType;
+  triggerScene?: NPSTriggerScene;
+  userSnapshot?: {
+    registerDays: number;
+    postCount: number;
+    friendCount: number;
+    chatCount: number;
+    points: number;
+    activityLevel: string;
+  };
+  status: NPSStatus;
+  priority: NPSPriority;
+  assignedTo?: number;
+  handleResult?: string;
+  handleTime?: string;
+  isFollowedUp: boolean;
+  followUpTime?: string;
+  followUpResult?: string;
+  createdAt: string;
+  updatedAt: string;
+  user?: {
+    id: number;
+    nickname: string;
+    mobile: string;
+    avatarUrl: string;
+  };
+  assignee?: {
+    id: number;
+    nickname: string;
+  };
+}
+
+export interface NPSQueryParams extends PaginationParams {
+  scoreRange?: string;
+  status?: number;
+  startDate?: string;
+  endDate?: string;
+  keyword?: string;
+}
+
+export interface NPSDashboard {
+  overview: {
+    totalFeedback: number;
+    npsScore: number;
+    promoterRate: number;
+    detractorRate: number;
+  };
+  categoryDistribution: {
+    promoter: number;
+    passive: number;
+    detractor: number;
+  };
+  statusDistribution: {
+    pending: number;
+    processing: number;
+    completed: number;
+    ignored: number;
+  };
+  recentFeedback: NPSFeedback[];
+}
+
+export interface NPSStatistics {
+  date: string;
+  npsScore: number;
+  totalCount: number;
+  promoterCount: number;
+  passiveCount: number;
+  detractorCount: number;
+}

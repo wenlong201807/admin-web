@@ -12,6 +12,12 @@ const Report = lazy(() => import('@/pages/Report'));
 const System = lazy(() => import('@/pages/System'));
 const File = lazy(() => import('@/pages/File'));
 const Mbti = lazy(() => import('@/pages/Mbti'));
+const NPSDashboard = lazy(() => import('@/pages/Nps/Dashboard'));
+const NPSFeedbackList = lazy(() => import('@/pages/Nps/FeedbackList'));
+const Logs = lazy(() => import('@/pages/Logs'));
+const Location = lazy(() => import('@/pages/Location'));
+const Cities = lazy(() => import('@/pages/Cities'));
+const Nearby = lazy(() => import('@/pages/Nearby'));
 
 // 路由配置
 export const routes = [
@@ -100,6 +106,54 @@ export const routes = [
         element: <Mbti />,
         meta: {
           title: 'MBTI管理',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'nps/dashboard',
+        element: <NPSDashboard />,
+        meta: {
+          title: 'NPS看板',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'nps/feedback',
+        element: <NPSFeedbackList />,
+        meta: {
+          title: 'NPS反馈列表',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'logs',
+        element: <Logs />,
+        meta: {
+          title: '日志查询',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'location',
+        element: <Location />,
+        meta: {
+          title: '位置管理',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'cities',
+        element: <Cities />,
+        meta: {
+          title: '城市管理',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'nearby',
+        element: <Nearby />,
+        meta: {
+          title: '附近统计',
           requireAuth: true,
         },
       },

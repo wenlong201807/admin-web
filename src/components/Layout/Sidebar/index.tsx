@@ -8,6 +8,9 @@ import {
   WarningOutlined,
   SettingOutlined,
   ExperimentOutlined,
+  EnvironmentOutlined,
+  GlobalOutlined,
+  HeatMapOutlined,
 } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../index.less';
@@ -52,6 +55,21 @@ const Sidebar = () => {
       key: '/mbti',
       icon: <ExperimentOutlined />,
       label: 'MBTI管理',
+    },
+    {
+      key: '/location',
+      icon: <EnvironmentOutlined />,
+      label: '位置管理',
+    },
+    {
+      key: '/cities',
+      icon: <GlobalOutlined />,
+      label: '城市管理',
+    },
+    {
+      key: '/nearby',
+      icon: <HeatMapOutlined />,
+      label: '附近统计',
     },
     {
       key: '/system',

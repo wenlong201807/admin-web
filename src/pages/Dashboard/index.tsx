@@ -36,13 +36,18 @@ const DashboardPage = observer(() => {
   };
 
   return (
-    <div className="dashboard-page">
-      <Card className="filter-card" style={{ marginBottom: 16 }}>
-        <Space>
-          <span>统计时间：</span>
-          <RangePicker value={dateRange} onChange={handleDateChange} />
-        </Space>
-      </Card>
+    <div className="dashboard-page" style={{ padding: 24 }}>
+      <Card
+        title={<span style={{ fontSize: 18, fontWeight: 600 }}>数据看板</span>}
+        className="filter-card"
+        style={{ marginBottom: 16 }}
+        extra={
+          <Space>
+            <span>统计时间：</span>
+            <RangePicker value={dateRange} onChange={handleDateChange} />
+          </Space>
+        }
+      />
 
       <Row gutter={16}>
         <Col span={6}>
