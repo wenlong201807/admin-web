@@ -11,7 +11,7 @@ RUN chmod -R 755 /usr/share/nginx/html && \
     chown -R nginx:nginx /usr/share/nginx/html
 
 # 暴露端口
-EXPOSE 80
+EXPOSE 443
 
 # 启动 nginx
 CMD ["nginx", "-g", "daemon off;"]
