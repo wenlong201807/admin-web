@@ -29,7 +29,8 @@ export const getPublicKey = () => {
 // 管理员登录
 export const login = async (params: LoginParams) => {
   // 1. 获取公钥
-  const { publicKey } = await getPublicKey();
+  const keyRes = await getPublicKey();
+  const publicKey = keyRes.data.publicKey;
 
   // 2. 设置公钥并加密密码
   cryptoUtil.setPublicKey(publicKey);

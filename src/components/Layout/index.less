@@ -1,12 +1,19 @@
 .main-layout {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 
   .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
     width: 240px;
     background: #001529;
     color: #fff;
     transition: width 0.2s;
+    overflow-y: auto;
+    z-index: 100;
 
     .logo {
       height: 64px;
@@ -43,11 +50,17 @@
 
   .main-content {
     flex: 1;
+    margin-left: 240px;
     display: flex;
     flex-direction: column;
+    height: 100vh;
     overflow: hidden;
 
     .header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 240px;
       height: 64px;
       background: #fff;
       box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
@@ -55,6 +68,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 24px;
+      z-index: 99;
 
       .header-left {
         h3 {
@@ -79,6 +93,7 @@
 
     .content-wrapper {
       flex: 1;
+      margin-top: 64px;
       padding: 24px;
       overflow-y: auto;
       background: #f0f2f5;
