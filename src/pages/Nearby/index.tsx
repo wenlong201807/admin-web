@@ -82,7 +82,8 @@ const NearbyPage: React.FC = () => {
       const days = activityDateRange[1].diff(activityDateRange[0], 'day');
       const { data } = await getUserActivity({
         limit: 20,
-          });
+        days,
+      });
       setUserActivity(data.list);
     } catch (error) {
       console.error('加载用户活跃度失败:', error);

@@ -9,7 +9,6 @@ import {
   Form,
   Input,
   Select,
-  DatePicker,
   message,
   Drawer,
   Descriptions,
@@ -20,8 +19,6 @@ import {
   getFeedbackDetail,
   updateFeedbackStatus,
   followUp,
-  UpdateNPSStatusParams,
-  FollowUpParams,
 } from '@/services/nps';
 import {
   NPSFeedback,
@@ -29,10 +26,9 @@ import {
   NPSStatus,
   NPSPriority,
   NPSTriggerType,
-} from '@/types/api';
+} from '@/types/api.d';
 import dayjs from 'dayjs';
 
-const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 const FeedbackList = () => {

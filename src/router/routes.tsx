@@ -18,6 +18,7 @@ const Logs = lazy(() => import('@/pages/Logs'));
 const Location = lazy(() => import('@/pages/Location'));
 const Cities = lazy(() => import('@/pages/Cities'));
 const Nearby = lazy(() => import('@/pages/Nearby'));
+const BannerList = lazy(() => import('@/pages/Banner/List'));
 
 // 路由配置
 export const routes = [
@@ -154,6 +155,14 @@ export const routes = [
         element: <Nearby />,
         meta: {
           title: '附近统计',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'banner',
+        element: <BannerList />,
+        meta: {
+          title: '轮播图管理',
           requireAuth: true,
         },
       },

@@ -1,28 +1,23 @@
 import { useEffect, useState } from 'react';
-import { Row, Col, Card, Statistic, Table, Tag, Select, DatePicker } from 'antd';
+import { Row, Col, Card, Statistic, Table, Tag } from 'antd';
 import {
   SmileOutlined,
   MehOutlined,
   FrownOutlined,
   CheckCircleOutlined,
 } from '@ant-design/icons';
-import { getDashboard, getStatistics } from '@/services/nps';
-import { NPSFeedback, NPSStatistics, NPSCategory, NPSStatus } from '@/types/api';
+import { getDashboard } from '@/services/nps';
+import { NPSCategory, NPSStatus } from '@/types/api.d';
 import dayjs from 'dayjs';
-
-const { RangePicker } = DatePicker;
 
 const NPSDashboard = () => {
   const [loading, setLoading] = useState(false);
   const [dashboard, setDashboard] = useState<any>(null);
-  const [statistics, setStatistics] = useState<NPSStatistics[]>([]);
-  const [periodType, setPeriodType] = useState('day');
-  const [days, setDays] = useState(30);
 
   useEffect(() => {
     fetchDashboard();
     fetchStatistics();
-  }, [periodType, days]);
+  }, []);
 
   const fetchDashboard = async () => {
     setLoading(true);
@@ -38,8 +33,9 @@ const NPSDashboard = () => {
 
   const fetchStatistics = async () => {
     try {
-      const res = await getStatistics(periodType, days);
-      setStatistics(res.data);
+      // 暂时注释掉统计功能
+      // const res = await getStatistics(periodType, days);
+      // setStatistics(res.data);
     } catch (error) {
       console.error('获取统计数据失败:', error);
     }

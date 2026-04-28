@@ -11,6 +11,7 @@ import {
   EnvironmentOutlined,
   GlobalOutlined,
   HeatMapOutlined,
+  PictureOutlined,
 } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../index.less';
@@ -45,6 +46,11 @@ const Sidebar = () => {
       key: '/content',
       icon: <FileTextOutlined />,
       label: '内容管理',
+    },
+    {
+      key: '/banner',
+      icon: <PictureOutlined />,
+      label: '轮播图管理',
     },
     {
       key: '/report',
