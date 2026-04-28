@@ -68,15 +68,16 @@ main() {
     else
         log_info "没有运行中的容器"
     fi
+
+    # 清理可能损坏的旧镜像
+    log_step "清理旧镜像"
+    docker images | grep "linux-190-deploy_frontend" | grep -v "latest" | awk '{print $3}' | xargs -r docker rmi -f 2>/dev/null || true
     echo ""
 
     # 步骤 4: 启动新容器
     print_step "步骤 4/5: 构建并启动新容器"
-    log_step "构建 Docker 镜像"
-    docker-compose build --no-cache
-
-    log_step "启动容器"
-    docker-compose up -d
+    log_step "构建并启动容器"
+    docker-compose up -d --build --force-recreate
     log_success "容器启动完成"
     echo ""
 
