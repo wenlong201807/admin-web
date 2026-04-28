@@ -4,6 +4,7 @@ import { cryptoUtil } from '@/utils/crypto';
 interface LoginParams {
   username: string;
   password: string;
+  emailCode: string;
   loginType?: 'username' | 'mobile_sms';
 }
 
@@ -26,6 +27,11 @@ export const getPublicKey = () => {
   return http.get<PublicKeyResponse>('/admin/auth/public-key');
 };
 
+// 发送管理员邮箱验证码（发送到配置的管理员邮箱）
+export const sendAdminEmailCode = () => {
+  return http.post<{ message: string }>('/admin/auth/email/send-admin-code');
+};
+
 // 管理员登录
 export const login = async (params: LoginParams) => {
   // 1. 获取公钥
@@ -36,10 +42,11 @@ export const login = async (params: LoginParams) => {
   cryptoUtil.setPublicKey(publicKey);
   const encryptedPassword = cryptoUtil.encryptText(params.password);
 
-  // 3. 发送登录请求
+  // 3. 发送登录请求（包含邮箱验证码）
   return http.post<LoginResponse>('/admin/auth/login', {
     account: params.username,
     password: encryptedPassword,
+    emailCode: params.emailCode,
     loginType: 'username',
   });
 };

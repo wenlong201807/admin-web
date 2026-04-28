@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { login, logout, refreshToken } from '@/services/auth';
+import { login, logout, refreshToken, sendAdminEmailCode } from '@/services/auth';
 import { AdminUser } from '@/types/api';
 
 class AuthStore {
@@ -36,10 +36,10 @@ class AuthStore {
   }
 
   // 登录
-  async login(username: string, password: string) {
+  async login(username: string, password: string, emailCode: string) {
     this.isLoading = true;
     try {
-      const res = await login({ username, password });
+      const res = await login({ username, password, emailCode });
       runInAction(() => {
         this.token = res.data.token;
         this.refreshToken = res.data.refreshToken || res.data.token;
@@ -56,6 +56,16 @@ class AuthStore {
       runInAction(() => {
         this.isLoading = false;
       });
+    }
+  }
+
+  // 发送邮箱验证码
+  async sendEmailCode() {
+    try {
+      const res = await sendAdminEmailCode();
+      return { success: true, message: res.data.message };
+    } catch (error: any) {
+      return { success: false, message: error.message };
     }
   }
 
