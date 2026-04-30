@@ -19,6 +19,9 @@ const Location = lazy(() => import('@/pages/Location'));
 const Cities = lazy(() => import('@/pages/Cities'));
 const Nearby = lazy(() => import('@/pages/Nearby'));
 const BannerList = lazy(() => import('@/pages/Banner/List'));
+const TopicList = lazy(() => import('@/pages/Topic/List'));
+const TopicDetail = lazy(() => import('@/pages/Topic/Detail'));
+const TopicStatistics = lazy(() => import('@/pages/Topic/Statistics'));
 
 // 路由配置
 export const routes = [
@@ -163,6 +166,30 @@ export const routes = [
         element: <BannerList />,
         meta: {
           title: '轮播图管理',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'topic/list',
+        element: <TopicList />,
+        meta: {
+          title: '话题列表',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'topic/detail/:id',
+        element: <TopicDetail />,
+        meta: {
+          title: '话题详情',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'topic/statistics',
+        element: <TopicStatistics />,
+        meta: {
+          title: '话题统计',
           requireAuth: true,
         },
       },

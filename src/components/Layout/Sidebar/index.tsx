@@ -12,6 +12,7 @@ import {
   GlobalOutlined,
   HeatMapOutlined,
   PictureOutlined,
+  TagsOutlined,
 } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../index.less';
@@ -51,6 +52,21 @@ const Sidebar = () => {
       key: '/banner',
       icon: <PictureOutlined />,
       label: '轮播图管理',
+    },
+    {
+      key: '/topic',
+      icon: <TagsOutlined />,
+      label: '话题管理',
+      children: [
+        {
+          key: '/topic/list',
+          label: '话题列表',
+        },
+        {
+          key: '/topic/statistics',
+          label: '话题统计',
+        },
+      ],
     },
     {
       key: '/report',
