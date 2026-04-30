@@ -10,7 +10,7 @@ services:
     ports:
       - "8108:80"
     networks:
-      - frontend-network
+      - admin-web-network
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1/"]
       interval: 30s
@@ -19,5 +19,5 @@ services:
       start_period: 40s
 
 networks:
-  frontend-network:
+  admin-web-network:
     driver: bridge
