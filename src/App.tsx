@@ -8,7 +8,7 @@ import './assets/styles/global.less';
 const App = () => {
   return (
     <ConfigProvider locale={zhCN}>
-      <BrowserRouter>
+      <BrowserRouter basename="/admin">
         <Router />
       </BrowserRouter>
     </ConfigProvider>
