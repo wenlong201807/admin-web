@@ -174,8 +174,8 @@ main() {
     print_header "✅ 部署完成！"
 
     log_info "访问地址："
-    echo "  - 前端页面: http://app.wenlong.life:${FRONTEND_PORT}"
-    echo "  - 后端 API: http://app.wenlong.life:${FRONTEND_PORT}/api/v1"
+    echo "  - 前端页面: https://app.wenlong.life/admin"
+    echo "  - 后端 API: https://app.wenlong.life/api/v1"
     echo ""
 
     log_info "查看日志："
