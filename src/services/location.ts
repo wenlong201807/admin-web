@@ -1,4 +1,5 @@
 import { http } from '@/utils/request';
+import { BaseResponse } from '@/types/api';
 
 export interface LocationStats {
   totalUsers: number;
@@ -38,20 +39,20 @@ export interface LocationUsersParams {
 
 // 获取位置数据统计
 export const getLocationStats = (params?: LocationStatsParams) => {
-  return http.get<LocationStats>('/admin/locations/stats', { params });
+  return http.get<BaseResponse<LocationStats>>('/admin/locations/stats', { params });
 };
 
 // 获取用户位置列表
 export const getLocationUsers = (params: LocationUsersParams) => {
-  return http.get<{
+  return http.get<BaseResponse<{
     list: UserLocation[];
     total: number;
-  }>('/admin/locations/users', { params });
+  }>>('/admin/locations/users', { params });
 };
 
 // 获取热力图数据
 export const getLocationHeatmap = (city?: string) => {
-  return http.get<{
+  return http.get<BaseResponse<{
     points: HeatmapPoint[];
-  }>('/admin/locations/heatmap', { params: { city } });
+  }>>('/admin/locations/heatmap', { params: { city } });
 };

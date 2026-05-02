@@ -1,4 +1,5 @@
 import { http } from '@/utils/request';
+import { BaseResponse } from '@/types/api';
 
 export interface PointsLog {
   id: number;
@@ -41,17 +42,17 @@ export interface PointsStatistics {
 export const pointsApi = {
   // 获取积分记录列表
   getList: (params: PointsQueryParams) => {
-    return http.get<{ list: PointsLog[]; total: number }>('/admin/points/logs', params);
+    return http.get<BaseResponse<{ list: PointsLog[]; total: number }>>('/admin/points/logs', params);
   },
 
   // 获取用户积分记录
   getUserPoints: (userId: number, params?: { page?: number; pageSize?: number }) => {
-    return http.get<{ list: PointsLog[]; total: number }>(`/admin/points/user/${userId}`, params);
+    return http.get<BaseResponse<{ list: PointsLog[]; total: number }>>(`/admin/points/user/${userId}`, params);
   },
 
   // 获取积分统计
   getStatistics: (params?: { startDate?: string; endDate?: string }) => {
-    return http.get<PointsStatistics>('/admin/points/statistics', params);
+    return http.get<BaseResponse<PointsStatistics>>('/admin/points/statistics', params);
   },
 
   // 手动调整用户积分

@@ -1,4 +1,5 @@
 import { http } from '@/utils/request';
+import { BaseResponse } from '@/types/api';
 
 export interface CertificationType {
   id: number;
@@ -33,26 +34,26 @@ export interface UpdateCertificationTypeDto {
 
 export const certificationTypeApi = {
   getList: () => {
-    return http.get<{ list: CertificationType[] }>('/admin/certification-types');
+    return http.get<BaseResponse<{ list: CertificationType[] }>>('/admin/certification-types');
   },
 
   getById: (id: number) => {
-    return http.get<CertificationType>(`/admin/certification-types/${id}`);
+    return http.get<BaseResponse<CertificationType>>(`/admin/certification-types/${id}`);
   },
 
   create: (data: CreateCertificationTypeDto) => {
-    return http.post<CertificationType>('/admin/certification-types', data);
+    return http.post<BaseResponse<CertificationType>>('/admin/certification-types', data);
   },
 
   update: (id: number, data: UpdateCertificationTypeDto) => {
-    return http.put(`/admin/certification-types/${id}`, data);
+    return http.put<BaseResponse<{ message: string }>>(`/admin/certification-types/${id}`, data);
   },
 
   delete: (id: number) => {
-    return http.delete(`/admin/certification-types/${id}`);
+    return http.delete<BaseResponse<{ message: string }>>(`/admin/certification-types/${id}`);
   },
 
   init: () => {
-    return http.post('/admin/certification-types/init');
+    return http.post<BaseResponse<{ message: string }>>('/admin/certification-types/init');
   }
 };

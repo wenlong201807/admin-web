@@ -1,4 +1,5 @@
 import { http } from '@/utils/request';
+import { BaseResponse } from '@/types/api';
 
 export interface Banner {
   id: number;
@@ -41,21 +42,21 @@ export interface UpdateBannerDto {
 }
 
 export const getBanners = (page: number = 1, pageSize: number = 20) => {
-  return http.get<BannerListResponse>('/admin/banners', { params: { page, pageSize } });
+  return http.get<BaseResponse<BannerListResponse>>('/admin/banners', { params: { page, pageSize } });
 };
 
 export const createBanner = (data: CreateBannerDto) => {
-  return http.post<{ message: string; banner: Banner }>('/admin/banners', data);
+  return http.post<BaseResponse<{ message: string; banner: Banner }>>('/admin/banners', data);
 };
 
 export const updateBanner = (id: number, data: UpdateBannerDto) => {
-  return http.put<{ message: string; banner: Banner }>(`/admin/banners/${id}`, data);
+  return http.put<BaseResponse<{ message: string; banner: Banner }>>(`/admin/banners/${id}`, data);
 };
 
 export const deleteBanner = (id: number) => {
-  return http.delete<{ message: string }>(`/admin/banners/${id}`);
+  return http.delete<BaseResponse<{ message: string }>>(`/admin/banners/${id}`);
 };
 
 export const toggleBannerStatus = (id: number) => {
-  return http.put<{ message: string; banner: Banner }>(`/admin/banners/${id}/toggle`);
+  return http.put<BaseResponse<{ message: string; banner: Banner }>>(`/admin/banners/${id}/toggle`);
 };

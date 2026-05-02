@@ -1,4 +1,5 @@
 import { http } from '@/utils/request';
+import { BaseResponse } from '@/types/api';
 
 export interface UserProfile {
   id: number;
@@ -118,30 +119,30 @@ export interface UserMatePreference {
 export const profileApi = {
   // 获取用户资料
   getProfile: (userId: number) => {
-    return http.get<UserProfile>(`/profile/${userId}`);
+    return http.get<BaseResponse<UserProfile>>(`/profile/${userId}`);
   },
 
   // 获取用户兴趣
   getInterests: (userId: number) => {
-    return http.get<UserInterest[]>(`/admin/profile/${userId}/interests`);
+    return http.get<BaseResponse<UserInterest[]>>(`/admin/profile/${userId}/interests`);
   },
 
   // 获取用户照片
   getPhotos: (userId: number) => {
-    return http.get<UserPhoto[]>(`/admin/profile/${userId}/photos`);
+    return http.get<BaseResponse<UserPhoto[]>>(`/admin/profile/${userId}/photos`);
   },
 
   // 获取择偶偏好
   getMatePreferences: (userId: number) => {
-    return http.get<UserMatePreference>(`/admin/profile/${userId}/mate-preferences`);
+    return http.get<BaseResponse<UserMatePreference>>(`/admin/profile/${userId}/mate-preferences`);
   },
 
   // 获取完整度详情
   getCompletenessDetails: (userId: number) => {
-    return http.get<{
+    return http.get<BaseResponse<{
       score: number;
       level: string;
       missingFields: string[];
-    }>(`/admin/profile/${userId}/completeness`);
+    }>>(`/admin/profile/${userId}/completeness`);
   },
 };

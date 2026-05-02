@@ -5,7 +5,6 @@ import axios, {
   AxiosError,
 } from 'axios';
 import { message } from 'antd';
-import { BaseResponse } from '@/types/api';
 import config from './config';
 
 // 创建 Axios 实例
@@ -36,9 +35,9 @@ const createAxiosInstance = (): AxiosInstance => {
   // 响应拦截器
   instance.interceptors.response.use(
     (response: AxiosResponse) => {
-      const { code, message: msg, data } = response.data;
+      const { code, message: msg } = response.data;
 
-      // 成功响应
+      // 成功响应 - 返回整个 response.data（包含 BaseResponse 结构）
       if (code === 0 || code === 200) {
         return response.data;
       }
@@ -123,19 +122,19 @@ export const request = createAxiosInstance();
 
 // 通用请求方法
 export const http = {
-  get: <T = any>(url: string, config?: AxiosRequestConfig) => {
-    return request.get<any, BaseResponse<T>>(url, config);
+  get: <T = any>(url: string, params?: any, config?: AxiosRequestConfig) => {
+    return request.get<any, T>(url, { ...config, params });
   },
 
   post: <T = any>(url: string, data?: any, config?: AxiosRequestConfig) => {
-    return request.post<any, BaseResponse<T>>(url, data, config);
+    return request.post<any, T>(url, data, config);
   },
 
   put: <T = any>(url: string, data?: any, config?: AxiosRequestConfig) => {
-    return request.put<any, BaseResponse<T>>(url, data, config);
+    return request.put<any, T>(url, data, config);
   },
 
   delete: <T = any>(url: string, config?: AxiosRequestConfig) => {
-    return request.delete<any, BaseResponse<T>>(url, config);
+    return request.delete<any, T>(url, config);
   },
 };

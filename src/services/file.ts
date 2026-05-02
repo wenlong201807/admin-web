@@ -1,4 +1,5 @@
 import { http } from '@/utils/request';
+import { BaseResponse } from '@/types/api';
 
 export interface FileRecord {
   id: number;
@@ -34,17 +35,17 @@ export interface FileListResponse {
 }
 
 export const getFileList = (params: FileListParams) => {
-  return http.get<FileListResponse>('/admin/file/list', { params });
+  return http.get<BaseResponse<FileListResponse>>('/admin/file/list', { params });
 };
 
 export const blockFile = (id: number, reason?: string) => {
-  return http.post(`/admin/file/${id}/block`, { reason });
+  return http.post<BaseResponse<{ message: string }>>(`/admin/file/${id}/block`, { reason });
 };
 
 export const unblockFile = (id: number) => {
-  return http.post(`/admin/file/${id}/unblock`);
+  return http.post<BaseResponse<{ message: string }>>(`/admin/file/${id}/unblock`);
 };
 
 export const batchBlockFile = (ids: number[], reason?: string) => {
-  return http.post('/admin/file/batch-block', { ids, reason });
+  return http.post<BaseResponse<{ message: string }>>('/admin/file/batch-block', { ids, reason });
 };

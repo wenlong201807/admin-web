@@ -1,5 +1,5 @@
 import { http } from '@/utils/request';
-import { PaginationParams, PaginationResponse, Post } from '@/types/api';
+import { PaginationParams, PaginationResponse, Post, BaseResponse } from '@/types/api';
 
 interface PostListParams extends PaginationParams {
   status?: number;
@@ -13,10 +13,10 @@ interface DeletePostParams {
 
 // 获取内容列表
 export const getPostList = (params: PostListParams) => {
-  return http.get<PaginationResponse<Post>>('/admin/posts', { params });
+  return http.get<BaseResponse<PaginationResponse<Post>>>('/admin/posts', { params });
 };
 
 // 删除内容
 export const deletePost = (id: number, params?: DeletePostParams) => {
-  return http.delete(`/admin/posts/${id}`, { data: params });
+  return http.delete<BaseResponse<{ message: string }>>(`/admin/posts/${id}`, { data: params });
 };

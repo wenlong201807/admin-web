@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Card,
   Table,
@@ -46,8 +46,8 @@ const ChatManagement = () => {
         try {
           const res = await chatApi.getConversations(queryParams);
           if (!cancelled) {
-            setConversations(res.list);
-            setTotal(res.total);
+            setConversations(res.data.list);
+            setTotal(res.data.total);
           }
         } catch (error: any) {
           if (!cancelled) {
@@ -63,8 +63,8 @@ const ChatManagement = () => {
         try {
           const res = await chatApi.getMessages(queryParams);
           if (!cancelled) {
-            setMessages(res.list);
-            setTotal(res.total);
+            setMessages(res.data.list);
+            setTotal(res.data.total);
           }
         } catch (error: any) {
           if (!cancelled) {
@@ -81,7 +81,7 @@ const ChatManagement = () => {
       try {
         const res = await chatApi.getStatistics();
         if (!cancelled) {
-          setStatistics(res);
+          setStatistics(res.data);
         }
       } catch (error: any) {
         if (!cancelled) {
@@ -97,6 +97,11 @@ const ChatManagement = () => {
     };
   }, [activeTab, queryParams]);
 
+  // 重新加载数据
+  const reloadData = () => {
+    setQueryParams({ ...queryParams });
+  };
+
   const handleDeleteMessage = async (messageId: number) => {
     Modal.confirm({
       title: '确认删除',
@@ -105,7 +110,7 @@ const ChatManagement = () => {
         try {
           await chatApi.deleteMessage(messageId);
           message.success('删除成功');
-          loadMessages();
+          reloadData();
         } catch (error: any) {
           message.error(error.message || '删除失败');
         }
@@ -359,13 +364,7 @@ const ChatManagement = () => {
           />
           <Button
             type="primary"
-            onClick={() => {
-              if (activeTab === 'conversations') {
-                loadConversations();
-              } else {
-                loadMessages();
-              }
-            }}
+            onClick={reloadData}
           >
             查询
           </Button>
@@ -382,23 +381,43 @@ const ChatManagement = () => {
 
       {/* 数据表格 */}
       <Card>
-        <Table
-          loading={loading}
-          dataSource={activeTab === 'conversations' ? conversations : messages}
-          columns={activeTab === 'conversations' ? conversationColumns : messageColumns}
-          rowKey="id"
-          pagination={{
-            current: queryParams.page,
-            pageSize: queryParams.pageSize,
-            total,
-            showSizeChanger: true,
-            showQuickJumper: true,
-            showTotal: (total) => `共 ${total} 条`,
-            onChange: (page, pageSize) => {
-              setQueryParams({ ...queryParams, page, pageSize });
-            },
-          }}
-        />
+        {activeTab === 'conversations' ? (
+          <Table
+            loading={loading}
+            dataSource={conversations}
+            columns={conversationColumns}
+            rowKey="id"
+            pagination={{
+              current: queryParams.page,
+              pageSize: queryParams.pageSize,
+              total,
+              showSizeChanger: true,
+              showQuickJumper: true,
+              showTotal: (total) => `共 ${total} 条`,
+              onChange: (page, pageSize) => {
+                setQueryParams({ ...queryParams, page, pageSize });
+              },
+            }}
+          />
+        ) : (
+          <Table
+            loading={loading}
+            dataSource={messages}
+            columns={messageColumns}
+            rowKey="id"
+            pagination={{
+              current: queryParams.page,
+              pageSize: queryParams.pageSize,
+              total,
+              showSizeChanger: true,
+              showQuickJumper: true,
+              showTotal: (total) => `共 ${total} 条`,
+              onChange: (page, pageSize) => {
+                setQueryParams({ ...queryParams, page, pageSize });
+              },
+            }}
+          />
+        )}
       </Card>
 
       {/* 会话详情弹窗 */}

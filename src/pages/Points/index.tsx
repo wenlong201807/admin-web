@@ -43,8 +43,8 @@ const PointsManagement = () => {
     setLoading(true);
     try {
       const res = await pointsApi.getList(queryParams);
-      setDataSource(res.list);
-      setTotal(res.total);
+      setDataSource(res.data.list);
+      setTotal(res.data.total);
     } catch (error: any) {
       message.error(error.message || '加载失败');
     } finally {
@@ -56,7 +56,7 @@ const PointsManagement = () => {
   const loadStatistics = useCallback(async () => {
     try {
       const res = await pointsApi.getStatistics();
-      setStatistics(res);
+      setStatistics(res.data);
     } catch (error: any) {
       message.error('加载统计数据失败');
     }

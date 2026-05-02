@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Card,
   Table,
@@ -15,7 +15,6 @@ import {
   Tabs,
 } from 'antd';
 import { ReloadOutlined, DeleteOutlined, WarningOutlined } from '@ant-design/icons';
-import dayjs from 'dayjs';
 import { friendApi, FriendRelation, BlacklistItem, FriendQueryParams, FriendStatistics } from '@/services/friend';
 import { FriendStatus, FriendStatusText, FriendStatusColor } from '@/constants/enums';
 import { formatDateTime } from '@/utils/format';
@@ -59,8 +58,8 @@ const FriendManagement = () => {
         try {
           const res = await friendApi.getRelations(queryParams);
           if (!cancelled) {
-            setRelations(res.list);
-            setTotal(res.total);
+            setRelations(res.data.list);
+            setTotal(res.data.total);
           }
         } catch (error: any) {
           if (!cancelled) {
@@ -76,8 +75,8 @@ const FriendManagement = () => {
         try {
           const res = await friendApi.getBlacklist(queryParams);
           if (!cancelled) {
-            setBlacklist(res.list);
-            setTotal(res.total);
+            setBlacklist(res.data.list);
+            setTotal(res.data.total);
           }
         } catch (error: any) {
           if (!cancelled) {
@@ -93,7 +92,7 @@ const FriendManagement = () => {
         try {
           const res = await friendApi.detectAbnormal({ threshold: ABNORMAL_FOLLOW_THRESHOLD });
           if (!cancelled) {
-            setAbnormalUsers(res.suspiciousUsers);
+            setAbnormalUsers(res.data.suspiciousUsers);
           }
         } catch (error: any) {
           if (!cancelled) {
@@ -110,7 +109,7 @@ const FriendManagement = () => {
       try {
         const res = await friendApi.getStatistics();
         if (!cancelled) {
-          setStatistics(res);
+          setStatistics(res.data);
         }
       } catch (error: any) {
         if (!cancelled) {
@@ -126,6 +125,11 @@ const FriendManagement = () => {
     };
   }, [activeTab, queryParams]);
 
+  // 重新加载数据
+  const reloadData = () => {
+    setQueryParams({ ...queryParams });
+  };
+
   const handleRemoveFriend = async (userId: number, friendId: number) => {
     Modal.confirm({
       title: '确认解除',
@@ -134,7 +138,7 @@ const FriendManagement = () => {
         try {
           await friendApi.removeFriend(userId, friendId);
           message.success('解除成功');
-          loadRelations();
+          reloadData();
         } catch (error: any) {
           message.error(error.message || '解除失败');
         }
@@ -150,7 +154,7 @@ const FriendManagement = () => {
         try {
           await friendApi.removeFromBlacklist(userId, blockedUserId);
           message.success('解除成功');
-          loadBlacklist();
+          reloadData();
         } catch (error: any) {
           message.error(error.message || '解除失败');
         }
@@ -427,13 +431,7 @@ const FriendManagement = () => {
             value={queryParams.keyword}
             onChange={(e) => setQueryParams({ ...queryParams, keyword: e.target.value })}
           />
-          <Button type="primary" onClick={() => {
-            if (activeTab === 'relations') {
-              loadRelations();
-            } else if (activeTab === 'blacklist') {
-              loadBlacklist();
-            }
-          }}>
+          <Button type="primary" onClick={reloadData}>
             查询
           </Button>
           <Button

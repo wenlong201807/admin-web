@@ -1,4 +1,5 @@
 import { http } from '@/utils/request';
+import { BaseResponse } from '@/types/api';
 
 export interface NearbyStats {
   totalViews: number;
@@ -38,19 +39,19 @@ export interface NearbyStatsParams {
 
 // 获取访问统计
 export const getNearbyStats = (params?: NearbyStatsParams) => {
-  return http.get<NearbyStats>('/admin/nearby/stats', { params });
+  return http.get<BaseResponse<NearbyStats>>('/admin/nearby/stats', { params });
 };
 
 // 获取热门区域分析
 export const getPopularAreas = (limit: number = 10) => {
-  return http.get<{
+  return http.get<BaseResponse<{
     list: PopularArea[];
-  }>('/admin/nearby/popular-areas', { params: { limit } });
+  }>>('/admin/nearby/popular-areas', { params: { limit } });
 };
 
 // 获取用户活跃度排行
 export const getUserActivity = (params: { limit?: number; days?: number }) => {
-  return http.get<{
+  return http.get<BaseResponse<{
     list: UserActivity[];
-  }>('/admin/nearby/user-activity', { params });
+  }>>('/admin/nearby/user-activity', { params });
 };

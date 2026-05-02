@@ -14,9 +14,7 @@ import {
   Empty,
 } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import dayjs from 'dayjs';
 import { profileApi, UserProfile, UserInterest, UserPhoto, UserMatePreference } from '@/services/profile';
-import { formatDateTime } from '@/utils/format';
 
 // 完整度详情类型
 interface CompletenessDetails {
@@ -65,7 +63,7 @@ const UserDetail = () => {
 
       // 处理基础资料（必需）
       if (results[0].status === 'fulfilled') {
-        setProfile(results[0].value);
+        setProfile(results[0].value.data);
       } else {
         message.error('加载用户资料失败');
         return;
@@ -73,28 +71,28 @@ const UserDetail = () => {
 
       // 处理兴趣爱好（可选）
       if (results[1].status === 'fulfilled') {
-        setInterests(results[1].value);
+        setInterests(results[1].value.data);
       } else {
         console.error('加载兴趣爱好失败:', results[1].reason);
       }
 
       // 处理照片（可选）
       if (results[2].status === 'fulfilled') {
-        setPhotos(results[2].value);
+        setPhotos(results[2].value.data);
       } else {
         console.error('加载照片失败:', results[2].reason);
       }
 
       // 处理择偶偏好（可选）
       if (results[3].status === 'fulfilled') {
-        setMatePreferences(results[3].value);
+        setMatePreferences(results[3].value.data);
       } else {
         console.error('加载择偶偏好失败:', results[3].reason);
       }
 
       // 处理完整度（可选）
       if (results[4].status === 'fulfilled') {
-        setCompleteness(results[4].value);
+        setCompleteness(results[4].value.data);
       } else {
         console.error('加载完整度失败:', results[4].reason);
       }

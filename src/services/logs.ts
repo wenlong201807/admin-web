@@ -1,4 +1,5 @@
 import { http } from '@/utils/request';
+import { BaseResponse } from '@/types/api';
 
 export interface LogEntry {
   type: string;
@@ -57,17 +58,17 @@ export interface LogStatsResponse {
 
 // 查询日志列表
 export const queryLogs = (params: QueryLogsParams) => {
-  return http.get<LogsResponse>('/admin/logs', { params });
+  return http.get<BaseResponse<LogsResponse>>('/admin/logs', { params });
 };
 
 // 获取日志详情
 export const getLogDetail = (requestId: string) => {
-  return http.get<LogDetailResponse>(`/admin/logs/detail/${requestId}`);
+  return http.get<BaseResponse<LogDetailResponse>>(`/admin/logs/detail/${requestId}`);
 };
 
 // 获取日志统计
 export const getLogStats = (startTime?: string, endTime?: string) => {
-  return http.get<LogStatsResponse>('/admin/logs/stats', {
+  return http.get<BaseResponse<LogStatsResponse>>('/admin/logs/stats', {
     params: { startTime, endTime },
   });
 };

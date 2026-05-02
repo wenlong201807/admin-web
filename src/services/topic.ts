@@ -1,4 +1,5 @@
 import { http } from '@/utils/request';
+import { BaseResponse } from '@/types/api';
 
 export interface Topic {
   id: number;
@@ -71,35 +72,35 @@ export interface BatchOperationDto {
 
 // 获取话题列表
 export const getTopics = (params: TopicListParams) => {
-  return http.get<TopicListResponse>('/admin/topics', { params });
+  return http.get<BaseResponse<TopicListResponse>>('/admin/topics', { params });
 };
 
 // 获取话题详情
 export const getTopicById = (id: number) => {
-  return http.get<Topic>(`/admin/topics/${id}`);
+  return http.get<BaseResponse<Topic>>(`/admin/topics/${id}`);
 };
 
 // 创建话题
 export const createTopic = (data: CreateTopicDto) => {
-  return http.post<Topic>('/admin/topics', data);
+  return http.post<BaseResponse<Topic>>('/admin/topics', data);
 };
 
 // 更新话题
 export const updateTopic = (id: number, data: UpdateTopicDto) => {
-  return http.put<Topic>(`/admin/topics/${id}`, data);
+  return http.put<BaseResponse<Topic>>(`/admin/topics/${id}`, data);
 };
 
 // 删除话题
 export const deleteTopic = (id: number) => {
-  return http.delete<{ success: boolean; message: string }>(`/admin/topics/${id}`);
+  return http.delete<BaseResponse<{ success: boolean; message: string }>>(`/admin/topics/${id}`);
 };
 
 // 批量操作
 export const batchOperation = (data: BatchOperationDto) => {
-  return http.post<{ success: boolean; message: string }>('/admin/topics/batch', data);
+  return http.post<BaseResponse<{ success: boolean; message: string }>>('/admin/topics/batch', data);
 };
 
 // 获取话题统计
 export const getTopicStatistics = () => {
-  return http.get<TopicStatistics>('/admin/topics/statistics');
+  return http.get<BaseResponse<TopicStatistics>>('/admin/topics/statistics');
 };

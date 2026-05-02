@@ -1,5 +1,5 @@
 import { http } from '@/utils/request';
-import { StatisticsData } from '@/types/api';
+import { StatisticsData, BaseResponse } from '@/types/api';
 
 interface StatisticsParams {
   startDate: string;
@@ -8,5 +8,5 @@ interface StatisticsParams {
 
 // 获取统计数据
 export const getStatistics = (params: StatisticsParams) => {
-  return http.get<StatisticsData>('/admin/statistics', { params });
+  return http.get<BaseResponse<StatisticsData>>('/admin/statistics', { params });
 };

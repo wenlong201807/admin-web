@@ -1,4 +1,5 @@
 import { http } from '@/utils/request';
+import { BaseResponse } from '@/types/api';
 
 export interface FriendRelation {
   id: number;
@@ -63,37 +64,37 @@ export interface FriendStatistics {
 export const friendApi = {
   // 获取好友关系列表
   getRelations: (params: FriendQueryParams) => {
-    return http.get<{ list: FriendRelation[]; total: number }>('/admin/friend/relations', params);
+    return http.get<BaseResponse<{ list: FriendRelation[]; total: number }>>('/admin/friend/relations', params);
   },
 
   // 获取用户好友列表
   getUserFriends: (userId: number, params?: { page?: number; pageSize?: number }) => {
-    return http.get<{ list: FriendRelation[]; total: number }>(`/admin/friend/user/${userId}/friends`, params);
+    return http.get<BaseResponse<{ list: FriendRelation[]; total: number }>>(`/admin/friend/user/${userId}/friends`, params);
   },
 
   // 获取用户粉丝列表
   getUserFollowers: (userId: number, params?: { page?: number; pageSize?: number }) => {
-    return http.get<{ list: FriendRelation[]; total: number }>(`/admin/friend/user/${userId}/followers`, params);
+    return http.get<BaseResponse<{ list: FriendRelation[]; total: number }>>(`/admin/friend/user/${userId}/followers`, params);
   },
 
   // 获取用户关注列表
   getUserFollowing: (userId: number, params?: { page?: number; pageSize?: number }) => {
-    return http.get<{ list: FriendRelation[]; total: number }>(`/admin/friend/user/${userId}/following`, params);
+    return http.get<BaseResponse<{ list: FriendRelation[]; total: number }>>(`/admin/friend/user/${userId}/following`, params);
   },
 
   // 获取黑名单列表
   getBlacklist: (params: FriendQueryParams) => {
-    return http.get<{ list: BlacklistItem[]; total: number }>('/admin/friend/blacklist', params);
+    return http.get<BaseResponse<{ list: BlacklistItem[]; total: number }>>('/admin/friend/blacklist', params);
   },
 
   // 获取用户黑名单
   getUserBlacklist: (userId: number) => {
-    return http.get<BlacklistItem[]>(`/admin/friend/user/${userId}/blacklist`);
+    return http.get<BaseResponse<BlacklistItem[]>>(`/admin/friend/user/${userId}/blacklist`);
   },
 
   // 获取好友统计
   getStatistics: () => {
-    return http.get<FriendStatistics>('/admin/friend/statistics');
+    return http.get<BaseResponse<FriendStatistics>>('/admin/friend/statistics');
   },
 
   // 解除好友关系（管理员操作）
@@ -108,7 +109,7 @@ export const friendApi = {
 
   // 检测异常关系（批量关注等）
   detectAbnormal: (params?: { threshold?: number }) => {
-    return http.get<{
+    return http.get<BaseResponse<{
       suspiciousUsers: {
         userId: number;
         followingCount: number;
@@ -120,6 +121,6 @@ export const friendApi = {
           mobile: string;
         };
       }[];
-    }>('/admin/friend/detect-abnormal', params);
+    }>>('/admin/friend/detect-abnormal', params);
   },
 };
