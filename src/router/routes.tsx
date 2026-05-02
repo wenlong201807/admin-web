@@ -5,6 +5,7 @@ import MainLayout from '@/components/Layout';
 const Login = lazy(() => import('@/pages/Login'));
 const Dashboard = lazy(() => import('@/pages/Dashboard'));
 const UserList = lazy(() => import('@/pages/User/List'));
+const UserDetail = lazy(() => import('@/pages/User/Detail'));
 const Certification = lazy(() => import('@/pages/Certification'));
 const CertificationType = lazy(() => import('@/pages/CertificationType'));
 const Content = lazy(() => import('@/pages/Content'));
@@ -22,6 +23,9 @@ const BannerList = lazy(() => import('@/pages/Banner/List'));
 const TopicList = lazy(() => import('@/pages/Topic/List'));
 const TopicDetail = lazy(() => import('@/pages/Topic/Detail'));
 const TopicStatistics = lazy(() => import('@/pages/Topic/Statistics'));
+const PointsManagement = lazy(() => import('@/pages/Points'));
+const ChatManagement = lazy(() => import('@/pages/Chat'));
+const FriendManagement = lazy(() => import('@/pages/Friend'));
 
 // 路由配置
 export const routes = [
@@ -54,6 +58,14 @@ export const routes = [
         element: <UserList />,
         meta: {
           title: '用户管理',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'user/detail/:id',
+        element: <UserDetail />,
+        meta: {
+          title: '用户详情',
           requireAuth: true,
         },
       },
@@ -190,6 +202,30 @@ export const routes = [
         element: <TopicStatistics />,
         meta: {
           title: '话题统计',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'points',
+        element: <PointsManagement />,
+        meta: {
+          title: '积分管理',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'chat',
+        element: <ChatManagement />,
+        meta: {
+          title: '聊天管理',
+          requireAuth: true,
+        },
+      },
+      {
+        path: 'friend',
+        element: <FriendManagement />,
+        meta: {
+          title: '好友管理',
           requireAuth: true,
         },
       },

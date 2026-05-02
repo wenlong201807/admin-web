@@ -13,6 +13,9 @@ import {
   HeatMapOutlined,
   PictureOutlined,
   TagsOutlined,
+  GiftOutlined,
+  MessageOutlined,
+  TeamOutlined,
 } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../index.less';
@@ -72,6 +75,21 @@ const Sidebar = () => {
       key: '/report',
       icon: <WarningOutlined />,
       label: '举报管理',
+    },
+    {
+      key: '/points',
+      icon: <GiftOutlined />,
+      label: '积分管理',
+    },
+    {
+      key: '/chat',
+      icon: <MessageOutlined />,
+      label: '聊天管理',
+    },
+    {
+      key: '/friend',
+      icon: <TeamOutlined />,
+      label: '好友管理',
     },
     {
       key: '/mbti',
